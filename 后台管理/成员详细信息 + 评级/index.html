@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>成员评级</title>
+	<link rel="stylesheet" href="../style/animate.css">
+	<style>
+	*{
+		margin:0;
+		padding:0;
+	}
+	html{
+		/*font-size: 12px;*/
+		width:100%;
+		height:100%;
+		font-family:"microsoft yahei";
+		-moz-user-select: none; /*火狐*/
+		-webkit-user-select: none; /*webkit浏览器*/
+		-ms-user-select: none; /*IE10*/
+	}
+	ul,ol{
+		list-style: none;
+	}
+	a{
+		text-decoration: none;
+	}
+/*	::selection{
+		color:#fff;
+		background-color:#0085A1;
+	}*/
+	#header{
+		width:100%;
+		height:450px;
+		background-color: #eee;
+		display:flex;
+		flex-flow:row wrap;
+		align-items:center;
+		justify-content:center;
+	}
+	#header>h1{
+		font-weight: normal;
+		font-size: 40px;
+	}
+
+
+	#aside{
+		width:300px;
+		height:800px;
+		background-color: #aaa;
+	}
+
+	#article{
+		/*width:100%;*/
+		height:auto;
+		background:#fff;
+		padding:50px 100px 100px 100px;
+		text-align: center;
+		/*display: flex;*/
+		/*flex-flow:row wrap;*/
+		/*align-items:center;*/
+		/*justify-content:center;*/
+	}
+	#acticle>h2{
+		font-weight: normal;
+		/*margin-bottom: 50px;*/
+	}
+	#article>div>span,time{
+		float:left;
+
+	}
+	#article>div>span{
+		font:bold 18px/20px 'microsoft yahei';
+	}
+	#article>div>time{
+		font: 14px/20px 'microsoft yehei';
+		margin-top: 8px;
+	}
+	#article>div>ul{
+		clear:left;
+	}
+	#button{
+		position:fixed;
+		bottom:0;
+		right:0;
+		width:100%;
+		height:60px;
+		color:#fff;
+		text-align: center;
+		font:20px/60px 'microsoft yahei';
+		border:none;
+		background-color: rgba(0,0,0,0.4);
+		transition:0.3s;
+	}
+	#button:hover{
+		background-color:rgba(0,0,0,0.7);
+	}
+	#button>.score{
+		position:absolute;
+		top:50%;
+		/*left:50%;*/
+		margin-left:50px;
+		/*margin-left: -500px;*/
+		width:80%;
+		height:1px;
+		background:#fff;
+	}
+	#button>.score>div{
+		width:18px;
+		height: 18px;
+		border-radius:50%;
+		position:absolute;
+		top:0;
+		left:0;	
+		font:bold 16px/56px 'microsoft yahei';
+		transform: translateY(-50%);
+		background-color: #fff;
+		cursor: pointer;
+	}
+	#button>a{
+		width:100px;
+		height:40px;
+		text-align: center;
+		line-height: 40px;
+		font-size: 16px;
+		background-color: #aad7ec;
+		position:absolute;
+		top:50%;
+		right:30px;
+		transform: translateY(-50%);
+		transition:0.4s;
+		color:#fff;
+		border-radius: 8px;
+	}
+	#button>a:hover{
+		background-color: #0085A1;
+	}
+	#scoreFont{
+		display:none;
+		position:fixed;
+		top:50%;
+		left:50%;
+		transform:translate(-50%,-50%);
+		font-size:200px;
+		text-shadow:5px 5px 20px black;
+		transition:0.4s;
+	}
+	</style>
+</head>
+<body>
+	<header id="header" class="animated bounceInDown">
+		<h1>成员评级</h1>
+	</header>
+
+	<article id="article" class="animated fadeInLeft">
+		<h2>姓名</h2>
+		<div class="firstTask">
+			<span>本周 (第八周) 计划 : </span><br />
+			<time>2016.05.06 - 2016.05.13</time>
+			<ul>
+				<li>任务一</li>
+				<li>任务二</li>
+				<li>任务三</li>
+			</ul>
+		</div>
+		<div class="seconedTask">
+			<span>上周 (第七周) 计划 : </span><br />
+			<time>2016.05.06 - 2016.05.13</time>
+			<ul>
+				<li>任务一</li>
+				<li>任务二</li>
+				<li>任务三</li>
+			</ul>
+		</div>
+		<div class="seconedTask">
+			<span>第六周计划 : </span><br />
+			<time>2016.05.06 - 2016.05.13</time>
+			<ul>
+				<li>任务一</li>
+				<li>任务二</li>
+				<li>任务三</li>
+			</ul>
+		</div>
+		<div class="seconedTask">
+			<span>第五周计划 : </span><br />
+			<time>2016.05.06 - 2016.05.13</time>
+			<ul>
+				<li>任务一</li>
+				<li>任务二</li>
+				<li>任务三</li>
+			</ul>
+		</div>
+	</article>
+
+	<div id="button" class="animated fadeInUp">
+		<div class="score">
+			<div>0</div>
+		</div>
+		<a href="" onclick="return false;">评 级</a>
+	</div>
+	<span id="scoreFont">0</span>
+	<footer id="footer"></footer>
+	<script>
+	var mainObj = {
+		drag: function(ev){
+			var ev = ev || window.event;
+			document.onmousemove = mainObj.dragMove(this,ev.clientX);
+			document.onmouseup = mainObj.dragUp;
+		},
+		dragMove: function(ele, downX){
+			var _this = this;
+			var scoreFont = document.getElementById('scoreFont');
+			return function(ev){
+				var ev = ev || window.event;
+				var nLeft = 0;
+				var change = 0;
+				if(ev.clientX < ele.parentNode.offsetLeft){
+					nLeft = 0;
+				}else if(ev.clientX > (ele.parentNode.offsetWidth+ele.parentNode.offsetLeft)){
+					nLeft = ele.parentNode.offsetWidth;
+				}else{
+					nLeft = (ev.clientX - ele.parentNode.offsetLeft);
+				}
+				change = _this.scoreChange(ele);
+				if(change < 60){
+					scoreFont.style.color = 'red';
+				}else if(change >= 60 && change < 90){
+					scoreFont.style.color = 'yellow';
+				}else if(change >= 90){
+					scoreFont.style.color = 'green';
+				}
+				ele.style.left = nLeft + 'px';
+				scoreFont.style.display = 'block';
+				scoreFont.innerHTML = change;
+				ele.innerHTML = change;
+			};
+		},
+		dragUp: function(){
+			var oScore = document.querySelector('#button>.score>div');
+			var scoreFont = document.getElementById('scoreFont');
+			scoreFont.style.display = 'none';
+			document.onmousemove = null;
+			document.onmouseup = null;
+		},
+		scoreChange: function(elem){
+			var score = 0;
+			score = parseInt( (elem.offsetLeft/elem.parentNode.offsetWidth)*100 );
+			return score;
+		}
+	};
+	(function(){
+		var oScore = document.querySelector('#button>.score>div');
+		var bar = document.querySelector('#button>.score');
+		oScore.addEventListener('mousedown',mainObj.drag,false);
+	})();
+	</script>
+</body>
+</html>

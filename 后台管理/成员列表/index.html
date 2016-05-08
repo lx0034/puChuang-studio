@@ -52,7 +52,8 @@
 		background-color:rgba(0,0,0,0.6);
 	}
 	#mask>div{
-		width:900px;
+		width:60%;
+		min-width:360px;
 		border:1px solid #000;
 		border-radius:8px;
 		box-shadow: 5px 8px 20px black;
@@ -97,6 +98,9 @@
 	#mask>div>div.win-content ol{
 		width:100%;
 		text-align: center;
+		display:flex;
+		flex-flow:column wrap;
+		align-items:center;
 	}
 	#mask>div>div.win-content span{
 		/*float:left;*/
@@ -132,31 +136,39 @@
 		font-weight: normal;
 	}
 	#section{
-		width:100%;
 		height:auto;
-		display: flex;
 		padding:50px 0 100px 0;
+		
+	}
+	#section>div{
+		width:100%;
+		text-align: center;
+		
+		display: flex;
 		flex-flow:row wrap;
 		align-items:center;
 		justify-content:space-around;
 	}
-	#section>div:nth-of-type(1){
-		border-left:1px solid #999;
-		border-bottom:1px solid #999;
-	}
 
 	#section>div>ul{
+		width:70%;
 		overflow: hidden;
+		font-size: 0;
 		transition:0.3s;
+		border-left:1px solid #999;
 	}
 	#section>div>ul.sele{
 		transform:translateY(-15%);
 		box-shadow: 3px 5px 10px black;
 	}
+	#section>div>ul:last-child{
+		border-bottom:1px solid #999;
+	}
 	#section>div>ul>li{
-		float:left;
-		width:200px;
-		/*width:16.6rem;*/
+		display:inline-block;
+		box-sizing:border-box;
+		width:20%;
+		font-size: 16px;
 		height:40px;
 		line-height: 40px;
 		text-align: center;
@@ -170,17 +182,18 @@
 		background: #fff;
 	}
 	#section>div>ul>li:hover{
-		background-color: #0492f4;
+		background-color: #ace9ff;
 	}
 	#section>div>ul>li>a{
 		display:block;
 		color:#444;
 		width:100%;
 		height:100%;
+		cursor:pointer;
 	}
 	#section>div>ul>li>a:hover{
 		color:#fff;
-		background-color: #aad7ec;
+		background-color: #0492f4;
 	}
 
 	#footer{
@@ -199,93 +212,8 @@
 		<div class="animated bounceInLeft">
 			<ul>
 				<li>姓名</li>
-				<li>地址</li>
 				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
-				<li><a href="javascript:;">详 情</a></li>
-			</ul>
-			<ul>
-				<li>姓名</li>
-				<li>地址</li>
-				<li>手机</li>
-				<li>邮箱</li>
+				<!-- <li>邮箱</li> -->
 				<li><a href="javascript:;">详 情</a></li>
 			</ul>
 		</div>
@@ -300,61 +228,168 @@
 				<div>
 					<span>本周计划 : </span>
 					<ol>
-						<li>计划一</li>
-						<li>计划二</li>
-						<li>计划三</li>
+						<!-- <li>计划一</li> -->
+<!-- 						<li>计划二</li>
+						<li>计划三</li> -->
 					</ol>
 				</div>
-				<div>
+<!-- 				<div>
 					<span>上周计划 : </span>
 					<ol>
 						<li>计划一</li>
 						<li>计划二</li>
 						<li>计划三</li>
 					</ol>
-				</div>
+				</div> -->
 			</div>
 			<a href="javascript:;">more...</a>
 		</div>		
 	</div>
 	<script>
 		var mainObj = {
-			ulOver: function(){
-				this.classList.add('sele');
+			ulOver: function(ev){
+
+				var ev = ev || window.event;
+				if(ev.target.nodeName.toLowerCase() === 'li'){
+					ev.target.parentNode.classList.add('sele');
+				}else if(ev.target.nodeName.toLowerCase() === 'a'){
+					ev.target.parentNode.parentNode.classList.add('sele');
+				}
 			},
-			ulOut: function(){
-				this.classList.remove('sele');
+
+			ulOut: function(ev){
+				var ev = ev || window.event;
+				if(ev.target.nodeName.toLowerCase() === 'li'){
+					ev.target.parentNode.classList.remove('sele');
+				}else if(ev.target.nodeName.toLowerCase() === 'a'){
+					ev.target.parentNode.parentNode.classList.remove('sele');
+				}
 			},
+
 			aClick: function(obj){
-				return function(){
-					obj.style.display = 'flex';
+				return function(ev){
+					var ev = ev || window.event;
+					if(ev.target.nodeName.toLowerCase() === 'a'){
+						mainObj.ajax('http://localhost/WEPAPI/history_plans.php', mainObj.ajax2Handle, ev.target.dataset.num);
+						// console.log(this.getElementsByClassName('sele'));
+						obj.style.display = 'flex';
+					}
+					
 				};
 			},
+
 			win_close: function(ele){
 				return function(){
 					ele.style.display = 'none';
 				};
+			},
+
+			ajaxHandle: function(dataObj){
+				var oDiv = document.querySelector('#section>div');
+				var aUl = document.querySelectorAll('#section>div>ul');
+				var aLi = document.getElementsByTagName('li');
+				var oFrag = document.createDocumentFragment();
+				var arr = [];
+				var num = mainObj.getJsonObjLength(dataObj.data[0][0]) + 1;
+					for(var i = 0;i < dataObj.data[0].length;i++){
+						var cUl = document.createElement('ul');
+						var cLi = document.createElement('li');
+						var cA = document.createElement('a');
+						cA.setAttribute('data-num',i);
+						cA.setAttribute('onclick','return false');
+						cA.innerHTML = '详 情';
+						cLi.appendChild(cA);
+						cUl.appendChild(cLi);
+
+						for(var attr in dataObj.data[0][i]){
+							var cLi = document.createElement('li');
+							cLi.innerHTML = dataObj.data[0][i][attr];
+							oFrag.appendChild(cLi);
+						}
+
+						cUl.insertBefore(oFrag,cUl.lastElementChild);
+						oDiv.appendChild(cUl);					
+					}
+				if( num == 0 ){
+					for(var i=0;i < aUl.length;i++){
+						aUl[i].style.display = 'none';
+					}
+				}else{
+					for(var i=0;i < aLi.length;i++){
+						aLi[i].style.width = mainObj.toPercent(1/num);
+					}
+				}
+			},
+
+			ajax2Handle: function(dataObj,sele){
+				console.log(dataObj);
+				var owin = document.getElementById('mask');
+				var oHeader = document.querySelector('#mask .win-header');
+				var oContent = document.querySelector('#mask .win-content');
+				oHeader.innerHTML = dataObj.data[sele].admin_rank;
+				var aOl = oContent.getElementsByTagName('ol')[0];
+				var cFrag = document.createDocumentFragment();
+
+				for(var attr in dataObj.data[sele].last_sum){
+					console.log(dataObj.data[sele].last_sum[attr]);
+					var cLi = document.createElement('li');
+					cLi.innerHTML = dataObj.data[sele].last_sum[attr];
+					cFrag.appendChild(cLi);
+				}
+				aOl.appendChild(cFrag);
+					
+			},
+
+			toPercent: function(data){
+			  var strData = parseFloat(data)*100;
+			  var ret = strData.toString()+"%";
+			  return ret;
+			},
+
+			getJsonObjLength: function(jsonObj) {
+			        var Length = 0;
+			        for (var item in jsonObj) {
+			            Length++;
+			        }
+			        return Length;
+			},
+
+			ajax: function(url,handle,eleObj){
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4){
+						if(xhr.status >=200 && xhr.status < 300 || xhr.status == 304){
+							var json = JSON.parse(xhr.responseText);
+							handle(json,eleObj);
+						}
+					}
+				};
+				xhr.open('get',url,true);
+				xhr.send(null);
 			}
 		};
+
+
 		(function(){
 			var oMask = document.getElementById('mask');
 			var oUl = document.getElementsByTagName('ul');
+			var oDiv = document.querySelector('#section>div');
 			var aA = document.querySelectorAll('#section a');
 			var oClose = document.querySelector('#mask .win-close');
 
-			//遍历ul添加mouseover事件
-			for(var i=0;i < oUl.length;i++){
-				oUl[i].addEventListener('mouseover',mainObj.ulOver,false);
-				oUl[i].addEventListener('mouseout',mainObj.ulOut,false);
-			}
+			mainObj.ajax('http://localhost/WEPAPI/user_list.php',mainObj.ajaxHandle,null);
+			
 
-			//遍历a添加点击事件
-			for(var i=0;i < aA.length;i++){
-				aA[i].addEventListener('click',mainObj.aClick(oMask),false);
-			}
+			//ul添加mouseover事件
+			oDiv.addEventListener('mouseover',mainObj.ulOver,false);
+			oDiv.addEventListener('mouseout',mainObj.ulOut,false);
+
+			//a添加点击事件
+			oDiv.addEventListener('click',mainObj.aClick(oMask),false);
 
 			//添加点击事件
 			oClose.addEventListener('click',mainObj.win_close(oMask),false);
+			
 		})();
 	</script>
 </body>

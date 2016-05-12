@@ -134,6 +134,7 @@
 	#header>h1{
 		font-size: 40px;
 		font-weight: normal;
+		-webkit-box-reflect:below 5px linear-gradient(rgba(0,0,0,0) 50%,rgba(0,0,0,0.8) 100%);
 	}
 	#section{
 		height:auto;
@@ -211,10 +212,11 @@
 	<section id="section">
 		<div class="animated bounceInLeft">
 			<ul>
+				<li>学号</li>
 				<li>姓名</li>
+				<li>邮箱</li>
 				<li>手机</li>
-				<!-- <li>邮箱</li> -->
-				<li><a href="javascript:;">详 情</a></li>
+				<li>详 情</li>
 			</ul>
 		</div>
 	</section>
@@ -227,11 +229,7 @@
 			<div class="win-content">
 				<div>
 					<span>本周计划 : </span>
-					<ol>
-						<!-- <li>计划一</li> -->
-<!-- 						<li>计划二</li>
-						<li>计划三</li> -->
-					</ol>
+					<ol></ol>
 				</div>
 <!-- 				<div>
 					<span>上周计划 : </span>
@@ -280,8 +278,34 @@
 
 			win_close: function(ele){
 				return function(){
+					var oA = ele.getElementsByTagName('a')[0];
+					oA.removeAttribute('data-num');
+					oA.removeAttribute('data-name');
 					ele.style.display = 'none';
 				};
+			},
+
+			details: function(num,name,i){
+				var oMask = document.querySelector('#mask a');
+				var Mask = document.getElementById('mask');
+				// mainObj.ajax2Handle
+				return function(){
+					oMask.setAttribute('data-num',num);
+					oMask.setAttribute('data-name',name);
+					console.log(num,name);
+					mainObj.ajax('http://localhost/WEPAPI/history_plans.php?username='+num+'nickname='+encodeURIComponent(name),mainObj.ajax2Handle,i);
+					Mask.style.display = 'flex';
+					return false;
+				};	
+			},
+
+			More: function(){
+				var oA = document.querySelector('#mask a');
+				var num = oA.getAttribute('data-num');
+				console.log(num);
+				var name = oA.getAttribute('data-name');
+				// mainObj.ajax('http://localhost/WEPAPI/history_plans.php?username='+num+'nickname='+encodeURIComponent(name),null,null);
+				oA.href = '../成员详细信息 + 评级/index.html#username=' + num + '&nickname=' + encodeURIComponent(name);
 			},
 
 			ajaxHandle: function(dataObj){
@@ -291,25 +315,29 @@
 				var oFrag = document.createDocumentFragment();
 				var arr = [];
 				var num = mainObj.getJsonObjLength(dataObj.data[0][0]) + 1;
-					for(var i = 0;i < dataObj.data[0].length;i++){
-						var cUl = document.createElement('ul');
+
+				for(var i = 0;i < dataObj.data[0].length;i++){
+					var cUl = document.createElement('ul');
+					var cLi = document.createElement('li');
+					var cA = document.createElement('a');
+					cA.setAttribute('data-num',i);
+					cA.setAttribute('onclick', 'return false');//mainObj.details(i)
+					cA.innerHTML = '详 情';
+					cLi.appendChild(cA);
+					cUl.appendChild(cLi);
+
+					cA.addEventListener('click',mainObj.details(dataObj.data[0][i].username,dataObj.data[0][i].nickname,i),false);
+
+					for(var attr in dataObj.data[0][i]){
 						var cLi = document.createElement('li');
-						var cA = document.createElement('a');
-						cA.setAttribute('data-num',i);
-						cA.setAttribute('onclick','return false');
-						cA.innerHTML = '详 情';
-						cLi.appendChild(cA);
-						cUl.appendChild(cLi);
-
-						for(var attr in dataObj.data[0][i]){
-							var cLi = document.createElement('li');
-							cLi.innerHTML = dataObj.data[0][i][attr];
-							oFrag.appendChild(cLi);
-						}
-
-						cUl.insertBefore(oFrag,cUl.lastElementChild);
-						oDiv.appendChild(cUl);					
+						cLi.innerHTML = dataObj.data[0][i][attr];
+						oFrag.appendChild(cLi);
 					}
+
+					cUl.insertBefore(oFrag,cUl.lastElementChild);
+					oDiv.appendChild(cUl);
+				}
+
 				if( num == 0 ){
 					for(var i=0;i < aUl.length;i++){
 						aUl[i].style.display = 'none';
@@ -322,22 +350,19 @@
 			},
 
 			ajax2Handle: function(dataObj,sele){
-				console.log(dataObj);
+				var oMask = document.getElementById('mask');
 				var owin = document.getElementById('mask');
 				var oHeader = document.querySelector('#mask .win-header');
 				var oContent = document.querySelector('#mask .win-content');
 				oHeader.innerHTML = dataObj.data[sele].admin_rank;
 				var aOl = oContent.getElementsByTagName('ol')[0];
-				var cFrag = document.createDocumentFragment();
 
+				mainObj.clearAllEle(aOl);
 				for(var attr in dataObj.data[sele].last_sum){
-					console.log(dataObj.data[sele].last_sum[attr]);
 					var cLi = document.createElement('li');
 					cLi.innerHTML = dataObj.data[sele].last_sum[attr];
-					cFrag.appendChild(cLi);
-				}
-				aOl.appendChild(cFrag);
-					
+					aOl.appendChild(cLi);
+				}		
 			},
 
 			toPercent: function(data){
@@ -347,11 +372,11 @@
 			},
 
 			getJsonObjLength: function(jsonObj) {
-			        var Length = 0;
-			        for (var item in jsonObj) {
-			            Length++;
-			        }
-			        return Length;
+		        var Length = 0;
+		        for (var item in jsonObj) {
+		            Length++;
+		        }
+		        return Length;
 			},
 
 			ajax: function(url,handle,eleObj){
@@ -360,13 +385,21 @@
 					if(xhr.readyState == 4){
 						if(xhr.status >=200 && xhr.status < 300 || xhr.status == 304){
 							var json = JSON.parse(xhr.responseText);
-							handle(json,eleObj);
+							handle && handle(json,eleObj);
 						}
 					}
 				};
 				xhr.open('get',url,true);
 				xhr.send(null);
+			},
+
+			clearAllEle: function(eleObj){
+				for(var i=eleObj.children.length - 1;i >= 0;i--){
+					eleObj.removeChild(eleObj.children[i]);
+				}
+				// eleObj.children.length;
 			}
+			
 		};
 
 
@@ -376,19 +409,21 @@
 			var oDiv = document.querySelector('#section>div');
 			var aA = document.querySelectorAll('#section a');
 			var oClose = document.querySelector('#mask .win-close');
+			var oMore = document.querySelector('#mask a');
 
 			mainObj.ajax('http://localhost/WEPAPI/user_list.php',mainObj.ajaxHandle,null);
 			
-
 			//ul添加mouseover事件
 			oDiv.addEventListener('mouseover',mainObj.ulOver,false);
 			oDiv.addEventListener('mouseout',mainObj.ulOut,false);
 
 			//a添加点击事件
-			oDiv.addEventListener('click',mainObj.aClick(oMask),false);
+			// oDiv.addEventListener('click',mainObj.aClick(oMask),false);
 
 			//添加点击事件
 			oClose.addEventListener('click',mainObj.win_close(oMask),false);
+			
+			oMore.addEventListener('click',mainObj.More,false);
 			
 		})();
 	</script>

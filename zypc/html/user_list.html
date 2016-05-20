@@ -1,0 +1,519 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>智邮普创工作室-内部管理平台</title>
+<link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="../static/js/jquery-1.11.0.min.js"></script>
+<!-- Custom Theme files -->
+<link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="zypc,smartxupt" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--Google Fonts-->
+<!-- <link href='//fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700,900' rel='stylesheet' type='text/css'> -->
+<link rel="stylesheet" href="../static/css/animate.css">
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="../static/js/move-top.js"></script>
+<script type="text/javascript" src="../static/js/easing.js"></script>
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){	
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+</script>
+	<style>
+	/*公共样式*/
+	*{
+		margin:0;
+		padding:0;			
+	}
+	html{
+		/*font-size: 12px;*/
+		width:100%;
+		height:100%;
+		font-family:"microsoft yahei";
+		-moz-user-select: none; /*火狐*/
+		-webkit-user-select: none; /*webkit浏览器*/
+		-ms-user-select: none; /*IE10*/
+	}
+/*	@media screen and (min-width: 580px){
+		html{
+			font-size: ;
+		}
+	}
+	@media screen and (min-width: 780px){
+		html{
+			font-size: 10.5px;
+		}
+	}*/
+	ul,ol{
+		list-style: none;
+	}
+	a{
+		text-decoration: none;	
+	}
+	/*公共样式结束*/
+	body{
+		width:100%;
+		height:100%;
+	}
+	#mask{
+		width:100%;
+		height:100%;
+		position:fixed;
+		display: flex;
+		align-items:center;
+		justify-content:center;
+		top:0;
+		left:0;
+		background-color:rgba(0,0,0,0.6);
+	}
+	#mask>div{
+		width:60%;
+		min-width:360px;
+		border:1px solid #000;
+		border-radius:8px;
+		box-shadow: 5px 8px 20px black;
+		background-color:#eee;
+	}
+	#mask>div>div.win-header{
+		width:100%;
+		height:60px;
+		text-align: center;
+		font: bold 30px/60px 'microsoft yahei';
+		border-bottom:4px solid #000;
+	}
+	#mask>div>.win-close{
+		width:40px;
+		height:40px;
+		background-color:#aaa;
+		line-height: 40px;
+		text-align: center;
+		font-size:20px;
+		font-weight: bold;
+		position:absolute;
+		top:0;
+		right:0;
+		border:none;
+		border-radius:0 8px 0 0;
+		cursor:pointer;
+	}
+	#mask>div>.win-close:hover{
+		color:#fff;
+		background-color:red;
+	}
+	#mask>div>div.win-content{
+/*		display:flex;
+		flex-flow:row wrap;
+		align-items:center;
+		justify-content:space-around;*/
+		padding:0 100px 0 100px;
+	}
+	#mask>div>div.win-content>div{
+		margin:10px 0 30px 0;
+	}
+	#mask>div>div.win-content ol{
+		width:100%;
+		text-align: center;
+		display:flex;
+		flex-flow:column wrap;
+		align-items:center;
+	}
+	#mask>div>div.win-content span{
+		/*float:left;*/
+		font: bold 18px 'microsoft yahei';
+	}
+	#mask>div>a{
+		display: block;
+		width:200px;
+		height:40px;
+		line-height: 40px;
+		text-align: center;
+		background-color:#aaa;
+		color:#444;
+		float:right;
+		border-radius:8px;
+		margin:0 80px 20px 0;
+	}
+	#mask>div>a:hover{
+		color:#fff;
+		background-color:#aad7ec;
+	}
+	#header{
+		width:100%;
+		height:450px;
+		background-color:#eee;
+		display:flex;
+		flex-flow:row wrap;
+		align-items:center;
+		justify-content:space-around;
+	}
+	#header>h1{
+		font-size: 40px;
+		font-weight: normal;
+		-webkit-box-reflect:below 5px linear-gradient(rgba(0,0,0,0) 50%,rgba(0,0,0,0.8) 100%);
+	}
+	#section{
+		height:auto;
+		padding:50px 0 100px 0;
+		
+	}
+	#section>div{
+		width:100%;
+		text-align: center;
+		
+		display: flex;
+		flex-flow:row wrap;
+		align-items:center;
+		justify-content:space-around;
+	}
+
+	#section>div>ul{
+		width:70%;
+		overflow: hidden;
+		font-size: 0;
+		transition:0.3s;
+		border-left:1px solid #999;
+	}
+	#section>div>ul.sele{
+		transform:translateY(-15%);
+		box-shadow: 3px 5px 10px black;
+	}
+	#section>div>ul:last-child{
+		border-bottom:1px solid #999;
+	}
+	#section>div>ul>li{
+		display:inline-block;
+		box-sizing:border-box;
+		width:20%;
+		font-size: 16px;
+		height:40px;
+		line-height: 40px;
+		text-align: center;
+		border-right:1px solid #999;
+		border-top:1px solid #999;
+	}
+	#section>div>ul>li:nth-of-type(2n){
+		background: #e2f5fb;
+	}
+	#section>div>ul>li:nth-of-type(2n+1){
+		background: #fff;
+	}
+	#section>div>ul>li:hover{
+		background-color: #ace9ff;
+	}
+	#section>div>ul>li>a{
+		display:block;
+		color:#444;
+		width:100%;
+		height:100%;
+		cursor:pointer;
+	}
+	#section>div>ul>li>a:hover{
+		color:#fff;
+		background-color: #0492f4;
+	}
+
+	#footer{
+		width:100%;
+		height:450px;
+		background-color: #eee;
+	}
+
+	</style>
+	<script type="text/javascript">
+	var mainObj = {
+			ulOver: function(ev){
+
+				var ev = ev || window.event;
+				if(ev.target.nodeName.toLowerCase() === 'li'){
+					ev.target.parentNode.classList.add('sele');
+				}else if(ev.target.nodeName.toLowerCase() === 'a'){
+					ev.target.parentNode.parentNode.classList.add('sele');
+				}
+			},
+
+			ulOut: function(ev){
+				var ev = ev || window.event;
+				if(ev.target.nodeName.toLowerCase() === 'li'){
+					ev.target.parentNode.classList.remove('sele');
+				}else if(ev.target.nodeName.toLowerCase() === 'a'){
+					ev.target.parentNode.parentNode.classList.remove('sele');
+				}
+			},
+
+			aClick: function(obj){
+				return function(ev){
+					var ev = ev || window.event;
+					if(ev.target.nodeName.toLowerCase() === 'a'){
+						mainObj.ajax('http://ims.smartxupt.com/WEPAPI/history_plans.php', mainObj.ajax2Handle, ev.target.dataset.num);
+						// console.log(this.getElementsByClassName('sele'));
+						obj.style.display = 'flex';
+					}
+					
+				};
+			},
+
+			win_close: function(ele){
+				return function(){
+					var oA = ele.getElementsByTagName('a')[0];
+					oA.removeAttribute('data-num');
+					oA.removeAttribute('data-name');
+					ele.style.display = 'none';
+				};
+			},
+
+			details: function(num,name,i){
+				var oMask = document.querySelector('#mask a');
+				var Mask = document.getElementById('mask');
+				// mainObj.ajax2Handle
+				return function(){
+					oMask.setAttribute('data-num',num);
+					oMask.setAttribute('data-name',name);
+					console.log(num,name);
+					// mainObj.ajax('http://localhost:8000/ims-smartxupt-master/ims-smartxupt-master/WEPAPI/history_plans.php?username='+ num +'&nickname='+encodeURIComponent(name),mainObj.ajax2Handle,name);
+					mainObj.ajax('http://ims.smartxupt.com/WEPAPI/history_plans.php?username='+num, mainObj.ajax2Handle, name);
+					Mask.style.display = 'flex';
+					return false;
+				};	
+			},
+
+			More: function(){
+				var oA = document.querySelector('#mask a');
+				var num = oA.getAttribute('data-num');
+				console.log(num);
+				var name = oA.getAttribute('data-name');
+				// mainObj.ajax('http://localhost/WEPAPI/history_plans.php?username='+num+'nickname='+encodeURIComponent(name),null,null);
+				oA.href = './history_plans.html#username=' + num + '&nickname=' + encodeURIComponent(name);
+			},
+
+			ajaxHandle: function(dataObj){
+				var oDiv = document.querySelector('#section>div');
+				var aUl = document.querySelectorAll('#section>div>ul');
+				var aLi = document.querySelectorAll('#section>div>ul>li');
+				var oFrag = document.createDocumentFragment();
+				var arr = [];
+				var num = mainObj.getJsonObjLength(dataObj.data[0]) + 1;
+
+				for(var i = 0;i < dataObj.data.length;i++){
+					var cUl = document.createElement('ul');
+					var cLi = document.createElement('li');
+					var cA = document.createElement('a');
+					cA.setAttribute('data-num',i);
+					cA.setAttribute('onclick', 'return false');//mainObj.details(i)
+					cA.innerHTML = '详 情';
+					cLi.appendChild(cA);
+					cUl.appendChild(cLi);
+
+					cA.addEventListener('click',mainObj.details(dataObj.data[i].username,dataObj.data[i].nickname,i),false);
+
+					for(var attr in dataObj.data[i]){
+						var cLi = document.createElement('li');
+						cLi.innerHTML = dataObj.data[i][attr];
+						oFrag.appendChild(cLi);
+					}
+					// console.log(dataObj);
+					cUl.insertBefore(oFrag,cUl.lastElementChild);
+					oDiv.appendChild(cUl);
+				}
+
+				if( num == 0 ){
+					for(var i=0;i < aUl.length;i++){
+						aUl[i].style.display = 'none';
+					}
+				}else{
+					for(var i=0;i < aLi.length;i++){
+
+						aLi[i].style.width = mainObj.toPercent(1/num);
+					}
+				}
+			},
+
+			ajax2Handle: function(dataObj,sele){
+				var oMask = document.getElementById('mask');
+				var owin = document.getElementById('mask');
+				var oHeader = document.querySelector('#mask .win-header');
+				var oContent = document.querySelector('#mask .win-content');
+				var arr = [];
+
+				// oHeader.innerHTML = dataObj.data[0].admin_rank;
+				oHeader.innerHTML = sele;
+				
+				var aOl = oContent.getElementsByTagName('ol')[0];
+				// console.log(dataObj.data[0].detial_play);
+				console.log(dataObj);
+				mainObj.clearAllEle(aOl);
+				if(dataObj){
+					arr = dataObj.data[0].detial_play.split('\n');
+					for(var i=1; i < arr.length;i++){
+						var cLi = document.createElement('li');
+						cLi.innerHTML = arr[i];
+						aOl.appendChild(cLi);
+					}
+					
+				}else{
+					var cLi = document.createElement('li');
+					cLi.innerHTML = '本周暂无计划';
+					aOl.appendChild(cLi);
+				}
+				
+				
+				
+				// for(var attr in dataObj.data[0].detial_play){
+				// 	var cLi = document.createElement('li');
+				// 	cLi.innerHTML = dataObj.data[sele].last_sum[attr];
+				// 	aOl.appendChild(cLi);
+				// }		
+			},
+
+			toPercent: function(data){
+			  var strData = parseFloat(data)*100;
+			  var ret = strData.toString()+"%";
+			  return ret;
+			},
+
+			getJsonObjLength: function(jsonObj) {
+		        var Length = 0;
+		        for (var item in jsonObj) {
+		            Length++;
+		        }
+		        return Length;
+			},
+
+			ajax: function(url,handle,eleObj){
+				var xhr = new XMLHttpRequest();
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4){
+						if(xhr.status >=200 && xhr.status < 300 || xhr.status == 304){
+							var json = JSON.parse(xhr.responseText);
+							handle && handle(json,eleObj);
+						}
+					}
+				};
+				xhr.open('get',url,true);
+				xhr.send(null);
+			},
+
+			clearAllEle: function(eleObj){
+				for(var i=eleObj.children.length - 1;i >= 0;i--){
+					eleObj.removeChild(eleObj.children[i]);
+				}
+				// eleObj.children.length;
+			}	
+	};
+	mainObj.ajax('http://ims.smartxupt.com/WEPAPI/user_list.php',Handle);
+	function Handle(data){
+		if(data === 1){
+			window.location.pathname = '/admin_login.php';
+		}
+	}
+	</script>
+</head>
+<body>
+	<!--banner start here-->
+<div class="banner-two">
+ 	<div class="header">
+		<div class="container">
+			<div class="header-main">
+				<div class="logo">
+					<h2><a href="#">内部签到平台</a></h2>
+				</div>
+				<div class="top-nav">
+					<span class="menu"> 
+						<img src="../static/images/icon.png" alt=""/>
+					</span>
+					<nav class="cl-effect-1">
+						<ul class="res"> 
+	                        <li><a href="/">主页</a></li>
+							<li><a href="../html/user_list.html">用户列表</a></li> 
+							<li><a href="../html/user_summarize_pie.html">一周在线时长</a></li> 
+					
+							<li><a href="/WEPAPI/login_out.php">退出</a></li>
+				  		</ul>
+					</nav>
+					<script>
+						$( "span.menu" ).click(function() {
+							$( "ul.res" ).slideToggle( 300, function() {
+							});
+						});
+					</script>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+ 	</div>
+ </div>
+<!--banner end here-->
+	<header id="header" class="animated bounceInDown">
+		<h1>成员后台管理</h1>
+	</header>
+	<section id="section">
+		<div class="animated bounceInLeft">
+			<ul>
+				<li>学号</li>
+				<li>姓名</li>
+				<li>手机</li>
+				<li>邮箱</li>
+				<li>详 情</li>
+			</ul>
+		</div>
+	</section>
+	<footer id="footer">
+	</footer>
+	<div id="mask" style="display:none;">
+		<div class="animated fadeInUp">
+			<button class="win-close">X</button>
+			<div class="win-header">姓名</div>
+			<div class="win-content">
+				<div>
+					<span>本周计划 : </span>
+					<ol></ol>
+				</div>
+<!-- 				<div>
+					<span>上周计划 : </span>
+					<ol>
+						<li>计划一</li>
+						<li>计划二</li>
+						<li>计划三</li>
+					</ol>
+				</div> -->
+			</div>
+			<a href="javascript:;">more...</a>
+		</div>		
+	</div>
+	<script>
+
+
+
+		(function(){
+			var oMask = document.getElementById('mask');
+			var oUl = document.getElementsByTagName('ul');
+			var oDiv = document.querySelector('#section>div');
+			var aA = document.querySelectorAll('#section a');
+			var oClose = document.querySelector('#mask .win-close');
+			var oMore = document.querySelector('#mask a');
+
+			mainObj.ajax('http://ims.smartxupt.com/WEPAPI/user_list.php',mainObj.ajaxHandle,null);
+			
+			//ul添加mouseover事件
+			oDiv.addEventListener('mouseover',mainObj.ulOver,false);
+			oDiv.addEventListener('mouseout',mainObj.ulOut,false);
+
+			//a添加点击事件
+			// oDiv.addEventListener('click',mainObj.aClick(oMask),false);
+
+			//添加点击事件
+			oClose.addEventListener('click',mainObj.win_close(oMask),false);
+			
+			oMore.addEventListener('click',mainObj.More,false);
+			
+		})();
+	</script>
+</body>
+</html>

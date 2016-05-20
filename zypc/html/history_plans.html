@@ -1,0 +1,459 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>智邮普创工作室-内部管理平台</title>
+<link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="../static/js/jquery-1.11.0.min.js"></script>
+<!-- Custom Theme files -->
+<link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="zypc,smartxupt" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--Google Fonts-->
+<!-- <link href='//fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'> -->
+<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700,900' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../static/css/animate.css">
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="../static/js/move-top.js"></script>
+<script type="text/javascript" src="../static/js/easing.js"></script>
+<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+</script>
+<!-- //end-smoth-scrolling -->
+	<style>
+	*{
+		margin:0;
+		padding:0;
+	}
+	html{
+		width:100%;
+		height:100%;
+		font-family:"microsoft yahei";
+		-moz-user-select: none; /*火狐*/
+		-webkit-user-select: none; /*webkit浏览器*/
+		-ms-user-select: none; /*IE10*/
+	}
+	ul,ol{
+		list-style: none;
+	}
+	a{
+		text-decoration: none;
+	}
+	#header{
+		width:100%;
+		height:450px;
+		background-color: #eee;
+		display:flex;
+		flex-flow:row wrap;
+		align-items:center;
+		justify-content:center;
+	}
+	#header>h1{
+		font-weight: normal;
+		font-size: 40px;
+		-webkit-box-reflect:below 5px linear-gradient(rgba(0,0,0,0) 50%,rgba(0,0,0,0.8) 100%);
+	}
+
+
+	#aside{
+		width:300px;
+		height:800px;
+		background-color: #aaa;
+	}
+
+	#article{
+		height:auto;
+		min-width:166px;
+		background:#fff;
+		/*padding:50px 100px 100px 100px;*/
+		padding:50px 15% 15% 15%;
+		text-align: center;
+	}
+	#acticle>h2{
+		font-weight: normal;
+	}
+	#article>div{
+		margin-bottom:20px;
+	}
+	#article>div>span,time{
+		float:left;
+	}
+	#article>div>span{
+		font:bold 18px/20px 'microsoft yahei';
+	}
+	#article>div>time{
+		font: 14px/20px 'microsoft yehei';
+		margin-top: 8px;
+	}
+	#article>div>ul{
+		clear:left;
+	}
+/*	#article>div>p{
+		border-bottom:1px solid black;
+	}*/
+	#article>div>div{
+		padding-bottom:20px;
+		border-bottom:3px solid black;
+	}
+	#article>div>div>p{
+		margin:0 0 10px 0;
+	}
+	#article>div>div>span{
+		font-weight: bold;
+	}
+	#button{
+		position:fixed;
+		bottom:0;
+		right:0;
+		width:100%;
+		height:60px;
+		color:#fff;
+		text-align: center;
+		font:20px/60px 'microsoft yahei';
+		border:none;
+		background-color: rgba(0,0,0,0.5);
+		transition:0.3s;
+	}
+	#button:hover{
+		background-color:rgba(0,0,0,0.7);
+	}
+	#button>.score{
+		position:absolute;
+		top:50%;
+		margin-left:5%;
+		width:80%;
+		height:1px;
+		background:#fff;
+	}
+	#button>.score>div{
+		width:18px;
+		height: 18px;
+		border-radius:50%;
+		position:absolute;
+		top:0;
+		left:0;	
+		font:bold 16px/56px 'microsoft yahei';
+		transform: translateY(-50%);
+		background-color: #fff;
+		cursor: pointer;
+	}
+	#button>a{
+		width:10%;
+		height:40px;
+		text-align: center;
+		line-height: 40px;
+		font-size: 16px;
+		background-color: #aad7ec;
+		position:absolute;
+		top:50%;
+		right:2%;
+		transform: translateY(-50%);
+		transition:0.4s;
+		color:#fff;
+		border-radius: 8px;
+	}
+	#button>a:hover{
+		background-color: #0085A1;
+	}
+	#scoreFont{
+		display:none;
+		position:fixed;
+		top:50%;
+		left:50%;
+		opacity:0.8;
+		transform:translate(-50%,-50%);
+		font-size:200px;
+		text-shadow:5px 5px 20px black;
+		transition:0.4s;
+	}
+	#mask{
+		position:fixed;
+		top:0;
+		left:0;
+		width:100%;
+		height:100%;
+		background-color:rgba(0,0,0,0.5);
+		display: flex;
+		flex-flow:row wrap;
+		align-items:center;
+		justify-content:center;
+	}
+	#window{
+		/*position:absolute;*/
+		/*top:50%;*/
+		/*left:50%;*/
+		width:40%;
+		height:10%;
+		/*border:1px solid red;*/
+		background-color:#eee;
+		border-radius:8px;
+		display: flex;
+		flex-flow:row wrap;
+		align-items:center;
+		justify-content:center;
+	}
+	#window>textarea{
+		width:80%;
+		height:40%;
+		font-size:16px;
+		line-height: 25px;
+		padding-left:5px;
+	}
+	#window>a{
+		display:block;
+		width:10%;
+		height:20px;
+		text-align: center;
+		line-height: 20px;
+		color:#fff;
+		background-color: #0492f4;
+		margin-left:10px;
+		padding:3px 0 3px 0;
+		font-size:14px;
+		font-weight:bold;
+		border-radius:8px;
+	}
+	#window>a:hover{
+		background-color:#0085A1;
+	}
+	</style>
+	<script type="text/javascript">
+	var mainObj = {
+	
+		drag: function(ev){
+			var ev = ev || window.event;
+			document.onmousemove = mainObj.dragMove(this,ev.clientX);
+			document.onmouseup = mainObj.dragUp;
+		},
+		
+		dragMove: function(ele, downX){
+			var _this = this;
+			var change = 0;
+			var scoreFont = document.getElementById('scoreFont');
+
+			return function(ev){
+				var ev = ev || window.event;
+				var nLeft = 0;
+				
+				if(ev.clientX < ele.parentNode.offsetLeft){
+					nLeft = 0;
+				}else if(ev.clientX > (ele.parentNode.offsetWidth+ele.parentNode.offsetLeft)){
+					nLeft = ele.parentNode.offsetWidth;
+				}else{
+					nLeft = (ev.clientX - ele.parentNode.offsetLeft);
+				}
+				change = _this.scoreChange(ele);
+				if(change < 60){
+					scoreFont.style.color = 'red';
+				}else if(change >= 60 && change < 90){
+					scoreFont.style.color = 'yellow';
+				}else if(change >= 90){
+					scoreFont.style.color = 'green';
+				}
+				ele.style.left = nLeft + 'px';
+				scoreFont.style.display = 'block';
+				scoreFont.innerHTML = change;
+				ele.innerHTML = change;
+				
+			};
+		},
+
+		dragUp: function(){
+			var oScore = document.querySelector('#button>.score>div');
+			var scoreFont = document.getElementById('scoreFont');
+			scoreFont.style.display = 'none';
+			var oMask = document.getElementById('mask');
+			var oJudge = oMask.getElementsByTagName('a')[0];
+			var oA = document.querySelector('#button>a');
+			oJudge.addEventListener('click',mainObj.actions(oA.parentElement.children[0].children[0].innerHTML),false);
+			document.onmousemove = null;
+			document.onmouseup = null;
+		},
+
+		scoreChange: function(elem){
+			var score = 0;
+			score = parseInt( (elem.offsetLeft/elem.parentNode.offsetWidth)*100 );
+			return score;
+		},
+
+		mouseover: function(ev){
+			var ev = ev || window.event;
+
+			if(ev.target.className == 'wrap'){
+				// ev.target.style.border = '1px solid black';
+				ev.target.background = '#999';
+				ev.target.className = 'animated rubberBand'
+			}
+		},
+
+		maskShow: function(){
+			var oMask = document.getElementById('mask');
+			oMask.style.display = 'flex';
+		},
+
+		maskHide: function(ev){
+			var ev = ev || window.event;
+			var oMask = document.getElementById('mask');
+			if(ev.target.id == 'mask'){
+				oMask.style.display = 'none';
+			}
+			
+			
+		},
+
+		ajax: function(url,ajaxHandle){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					if(xhr.status >= 200 && xhr.status < 300 || xhr.status == 304){
+						ajaxHandle && ajaxHandle(JSON.parse(xhr.responseText));
+					}
+				}
+			};
+			xhr.open('get',url,true);
+			xhr.send(null);
+		},
+
+		ajaxHandle: function( data ){
+			var oArticle = document.getElementById('article');
+			var oBtn = document.getElementById('button');
+			var cFrag = document.createDocumentFragment();
+			var Name = window.location.hash.split('&');
+			var currentName = Name[Name.length - 1].split('=')[1];
+			var str = '<h2>'+ decodeURIComponent(currentName) +'</h2>';
+			if(data){
+				if(Number( data.data[0].admin_flag )){
+					oBtn.style.display = 'none';
+				}
+
+				for(var i=0;i < data.data.length;i++){
+					if( Number(data.data[i].admin_flag) ){
+						str += '<div class="wrap"><span>本周 (第八周) 计划 : </span><br /><time>'+data.data[i].pubdate+'</time><ul>';
+						for(var j=0;j < data.data[i].detial_play.split('\n').length;j++){
+							str += '<li>'+ data.data[i].detial_play.split('\n')[j] +'</li>';
+						}
+						str += '</ul><span>上周小结 : </span><br /><p>'+data.data[i].last_sum+'</p><br /><div><span>组长评价：</span><span>'+data.data[i].admin_rate+'</span><br /><br /><span>评价等级：</span>'+data.data[i].admin_rank+'&nbsp&nbsp&nbsp&nbsp&nbsp<span>在线时长：</span>'+data.data[i].timelong+'</div></div>';
+					}else{
+						str += '<div class="wrap"><span>本周 (第八周) 计划 : </span><br /><time>'+data.data[i].pubdate+'</time><ul>';
+						for(var j=0;j < data.data[i].detial_play.split('\n').length;j++){
+							str += '<li>'+ data.data[i].detial_play.split('\n')[j] +'</li>';
+						}
+						str += '</ul><span>上周小结 : </span><br /><p>'+data.data[i].last_sum+'</p><br /><div><span>暂未评价...</span></div></div>';
+					}
+				}
+				oArticle.innerHTML = str;
+			}else{
+				// window.location.pathname = '/ims-smartxupt-master/ims-smartxupt-master/html/user_list.html'
+				
+			}
+				
+		},
+		actions: function(value){
+			// var oA = document.getElementById()
+			var oMask = document.getElementById('mask');
+			var oJudge = oMask.getElementsByTagName('a')[0];
+			return function(){
+				console.log('http://ims.smartxupt.com/WEPAPI/start_judge.php?usernum='+ window.location.hash.split('&')[0].split('=')[1] +'&rate='+ encodeURIComponent(this.previousElementSibling.value) +'&rank='+ value);
+				oJudge.href = 'http://ims.smartxupt.com/WEPAPI/start_judge.php?usernum='+ window.location.hash.split('&')[0].split('=')[1] +'&rate='+ this.previousElementSibling.value +'&rank='+ value;
+
+				// mainObj.ajax('http://localhost:8000/ims-smartxupt-master/ims-smartxupt-master/WEPAPI/start_judge.php?usernum='+ window.location.hash.split('&')[0].split('=')[1] +'&rate='+ this.previousElementSibling.value +'&rank='+ value,null,null);
+
+			};
+		}
+		
+	};
+	if(window.location.hash == ''){
+		window.location.pathname = '/html/user_list.html';
+	}
+	mainObj.ajax('http://ims.smartxupt.com/WEPAPI/user_list.php',Handle);
+	function Handle(data){
+		if(data === 1){
+			window.location.pathname = '/admin_login.php';
+		}
+	}
+	</script>
+</head>
+<body>
+<!--banner start here-->
+<div class="banner-two">
+ 	<div class="header">
+		<div class="container">
+			<div class="header-main">
+				<div class="logo">
+					<h2><a href="#">内部签到平台</a></h2>
+				</div>
+				<div class="top-nav">
+					<span class="menu"> 
+						<img src="../static/images/icon.png" alt=""/>
+					</span>
+					<nav class="cl-effect-1">
+						<ul class="res"> 
+	                        <li><a href="/">主页</a></li>
+							<li><a href="../html/user_list.html">用户列表</a></li> 
+							  <li><a href="../html/user_summarize_pie.html">一周在线时长</a></li> 
+							<li><a href="/WEPAPI/login_out.php">退出</a></li>
+				  		</ul>
+					</nav>
+					<script>
+						$( "span.menu" ).click(function() {
+							$( "ul.res" ).slideToggle( 300, function() {
+							});
+						});
+					</script>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+ 	</div>
+ </div>
+<!--banner end here-->
+	<header id="header" class="animated bounceInDown">
+		<h1>成员评级</h1>
+	</header>
+
+	<article class="animated fadeInLeft" id="article">
+
+	</article>
+
+	<div id="button" class="animated fadeInUp">
+		<div class="score">
+			<div>0</div>
+		</div>
+		
+		<a href="" onclick="return false">评 级</a>
+	</div>
+	<div id="mask" style="display:none;">
+		<div id="window" class="animated flipInY">
+			<textarea name="grade"></textarea>
+			<a href="">评 价</a>
+		</div>
+	</div>
+	<span id="scoreFont">0</span>
+	<footer id="footer"></footer>
+	<script>
+	
+
+	(function(){
+		var oScore = document.querySelector('#button>.score>div');
+		var bar = document.querySelector('#button>.score');
+		var oArticle = document.getElementById('article');
+		var oA = document.querySelector('#button>a');
+		var oMask = document.getElementById('mask');
+		
+		oA.addEventListener('click',mainObj.maskShow,false);
+		oMask.addEventListener('click',mainObj.maskHide,false);
+		oScore.addEventListener('mousedown',mainObj.drag,false);
+		
+		mainObj.ajax('http://ims.smartxupt.com/WEPAPI/history_plans.php?'+window.location.hash.slice(1),mainObj.ajaxHandle);
+	})();
+	</script>
+</body>
+</html>

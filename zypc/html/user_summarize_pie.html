@@ -1,0 +1,180 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>智邮普创工作室-内部管理平台</title>
+<link href="../static/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="../static/js/jquery-1.11.0.min.js"></script>
+<!-- Custom Theme files -->
+<link href="../static/css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<!-- Custom Theme files -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="zypc,smartxupt" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+<!--Google Fonts-->
+<link href='//fonts.googleapis.com/css?family=Squada+One' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:400,200,300,600,700,900' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="../static/css/animate.css">
+<link rel="stylesheet" href="../static/css/style.css">
+ <link rel="stylesheet" href="../static/css/styleq.css">
+<!-- start-smoth-scrolling -->
+<script type="text/javascript" src="../static/js/move-top.js"></script>
+<script type="text/javascript" src="../static/js/easing.js"></script>
+<script type="text/javascript">
+    Ajax('GET','http://ims.smartxupt.com/WEPAPI/user_summarize.php'.function(data){
+        if(data === '1'){
+            window.location.pathname = '/admin_login.php';
+        }
+    },function(error){
+        console.log(error)
+    });
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event){     
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+                });
+            });
+</script>
+   
+   
+</head>
+<body>
+<!--banner start here-->
+<div class="banner-two">
+    <div class="header">
+        <div class="container">
+            <div class="header-main">
+                <div class="logo">
+                    <h2><a href="#">内部签到平台</a></h2>
+                </div>
+                <div class="top-nav">
+                    <span class="menu"> 
+                        <img src="../static/images/icon.png" alt=""/>
+                    </span>
+                    <nav class="cl-effect-1">
+                        <ul class="res"> 
+                            <li><a href="/">主页</a></li>
+                            <li><a href="../html/user_list.html">用户列表</a></li> 
+                            <li><a href="#">一周在线时长</a></li>
+                            <li><a href="/WEPAPI/login_out.php">退出</a></li>
+                        </ul>
+                    </nav>
+                    <script>
+                        $( "span.menu" ).click(function() {
+                            $( "ul.res" ).slideToggle( 300, function() {
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+ </div>
+<!--banner end here-->  
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="height:400px"></div>
+    <!-- <a id="Transform" href="line.html"><div id="pie">个人在线时长</div></a> -->
+    <!-- ECharts单文件引入 -->
+    <script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+    <script src="../static/js/ajax.js"></script>
+    <script type="text/javascript">
+    var obj = {
+        aaa:[],
+        bbb:[]
+        };   
+    var arr2 = [];
+        // 测试调用
+        Ajax('get', 'http://ims.smartxupt.com/WEPAPI/user_summarize.php',null,function(data){
+            var json = JSON.parse(data);
+            var arr = [];
+            var arr1 = [];
+            for(var i = 0;i < json.data[0].length;i++)
+            {
+                 var json1={};
+                json1.value = json.data[0][i].time;
+                json1.name = json.data[0][i].nickname;
+                arr.push(json.data[0][i].nickname);
+                arr1.push(json.data[0][i].time);
+                arr2.push(json1);
+            }
+            obj.aaa = arr;
+            obj.bbb = arr1;
+            console.log(obj);
+        }, function(error){
+            console.log(error);
+        }); 
+        // 路径配置
+        require.config({
+            paths: {
+                echarts: 'http://echarts.baidu.com/build/dist'
+            }
+        });
+        
+        // 使用
+        require(
+            [
+                'echarts',
+                'echarts/chart/pie',// 按需加载
+                'echarts/chart/funnel' // 按需加载
+
+            ],
+            function (ec) {
+                // 基于准备好的dom，初始化echarts图表
+                var myChart = ec.init(document.getElementById('main')); 
+                option = {
+    title : {
+        text: '智邮普创工作室',
+        subtext: '在线总时长一览图',
+        x:'center'
+    },
+    tooltip : {
+        trigger: 'item',
+        formatter: "{a} <br/>{b} : {c} ({d}%)"
+    },
+    legend: {
+        orient : 'vertical',
+        x : 'left',
+        data:obj.aaa
+    },
+    toolbox: {
+        show : true,
+        feature : {
+            mark : {show: true},
+            dataView : {show: true, readOnly: false},
+            magicType : {
+                show: true, 
+                type: ['pie','funnel'],
+                option: {
+                    funnel: {
+                        x: '25%',
+                        width: '50%',
+                        funnelAlign: 'left',
+                        max: 1548
+                    }
+                }
+            },
+            restore : {show: true},
+            saveAsImage : {show: true}
+        }
+    },
+    calculable : true,
+    series : [
+        {
+            name:'总时长',
+            type:'pie',
+            radius : '55%',
+            center: ['50%', '60%'],
+            data: arr2
+            // data: [12,23,43]
+            }
+    ]
+};
+                    
+                // 为echarts对象加载数据 
+                myChart.setOption(option); 
+            }
+        );
+    </script>
+</body>
